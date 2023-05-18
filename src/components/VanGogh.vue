@@ -1,7 +1,7 @@
 <template>
   <div>
 
-          <div id="plotContainer"></div>
+          <div id="plotContainer" :style="`cursor:${plotCursor};`" @mousedown="togglePlotCursor" @mouseup="togglePlotCursor"></div>
           <v-card class="mt-1" :style="`width: ${paintingWidth}; position: fixed; right: 15px; top: 40px;`">
                 <v-select
                 v-model="painting"
@@ -151,9 +151,15 @@ const { mobile, name } = useDisplay()
 
 const paintingWidth = mobile? '200px' : '10vw'
 
+let plotCursor = ref('grab')
+
+function togglePlotCursor() {
+    let grab = (plotCursor.value === 'grab')
+    plotCursor.value = grab? 'grabbing' : 'grab'
+}
+
 onMounted(() => {
     make3dPlot(paintingJson.value, plotContainerId.value)
-    console.log('mounted', mobile.value, name.value)
 })
 
 let showInfo = ref(false)
@@ -162,13 +168,7 @@ function toggleShowInfo() {
     showInfo.value = !showInfo.value
 }
 
-watch(showInfo, (newShowInfo) => {
-    console.log(newShowInfo)
-})
 
-watch(mobile, (newMobile) => {
-    console.log(newMobile)
-})
 </script>
 
 <style>
