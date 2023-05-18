@@ -1,5 +1,5 @@
 <template>
-  <div class="mr-1">
+  <div>
 
           <div id="plotContainer"></div>
           <v-card class="mt-1" :style="`width: ${paintingWidth}; position: fixed; right: 15px; top: 40px;`">
