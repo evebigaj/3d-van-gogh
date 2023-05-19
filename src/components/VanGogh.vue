@@ -9,6 +9,7 @@
                 item-title="title"
                 item-value="fNumber">
                 </v-select>
+                <v-checkbox label="Show axes" v-model="checkShowAxes"></v-checkbox>
                 <v-img  :src="`/${fNumber}.jpeg`"></v-img>
 
             </v-card>
@@ -138,13 +139,23 @@ let  paintings = ref([
 ])
 
 let plotContainerId = ref('plotContainer')
+let showAxes = ref(false)
+let checkShowAxes = ref(false)
+
+watch(checkShowAxes, (newValue) => {
+    showAxes = newValue
+})
 
 // const theme = useTheme()
 // let backgroundColor = theme.current._value.colors.background
 
 
 watch(paintingJson, (newPaintingJson) => {
-    make3dPlot(newPaintingJson, plotContainerId.value, showAxes.value)
+    make3dPlot(newPaintingJson, plotContainerId.value, checkShowAxes.value)
+})
+
+watch(checkShowAxes, newShowAxes => {
+    make3dPlot(paintingJson.value, plotContainerId.value, newShowAxes)
 })
 
 const { mobile } = useDisplay()
@@ -158,7 +169,7 @@ function togglePlotCursor() {
     plotCursor.value = grab? 'grabbing' : 'grab'
 }
 
-let showAxes = ref(false)
+
 
 onMounted(() => {
     make3dPlot(paintingJson.value, plotContainerId.value, showAxes.value)
@@ -177,6 +188,9 @@ function toggleShowInfo() {
 
 #plotContainer {
     min-height: 100vh;
+}
+.v-input__details {
+    display: none !important;
 }
 
 </style>

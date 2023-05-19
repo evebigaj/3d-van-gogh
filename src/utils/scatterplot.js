@@ -2,7 +2,6 @@ import Plotly from 'plotly.js-dist';
 import * as d3 from 'd3'
 
 function layout(showAxes) {
-    console.log('axes', showAxes)
     return {
         showlegend: false,
         margin: {
@@ -75,7 +74,6 @@ export function make3dPlot(paintingJson, plotContainerId, showAxes=false) {
                 hovertemplate: "%{text}" + 
                 "<extra></extra>" //this removes the default trace 0 part of the hover label
             }]
-            //console.log(data)
             //data = data.filter((entry, index) => index % 50 == 0)
             Plotly.newPlot(plotContainerId, dataForPlot, layout(showAxes))
         }
