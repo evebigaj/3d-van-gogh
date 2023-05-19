@@ -52,9 +52,9 @@ export function make3dPlot(paintingJson, plotContainerId, showAxes=false) {
                     let bValue = Math.abs(b.toFixed(1))
                     let lLabel = 'Lightness'
                     text.push(
-                        `${lLabel} : ${l.toFixed(1)}<br>` +
-                        `${aLabel} : ${aValue}<br>` +
-                        `${bLabel} : ${bValue}<br>`
+                        `${lLabel}: ${l.toFixed(1)}<br>` +
+                        `${aLabel}: ${aValue}<br>` +
+                        `${bLabel}: ${bValue}<br>`
                     )                    
                 })
             })
