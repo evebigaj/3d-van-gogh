@@ -144,10 +144,10 @@ let plotContainerId = ref('plotContainer')
 
 
 watch(paintingJson, (newPaintingJson) => {
-    make3dPlot(newPaintingJson, plotContainerId.value)
+    make3dPlot(newPaintingJson, plotContainerId.value, showAxes.value)
 })
 
-const { mobile, name } = useDisplay()
+const { mobile } = useDisplay()
 
 const paintingWidth = mobile? '200px' : '10vw'
 
@@ -158,8 +158,10 @@ function togglePlotCursor() {
     plotCursor.value = grab? 'grabbing' : 'grab'
 }
 
+let showAxes = ref(false)
+
 onMounted(() => {
-    make3dPlot(paintingJson.value, plotContainerId.value)
+    make3dPlot(paintingJson.value, plotContainerId.value, showAxes.value)
 })
 
 let showInfo = ref(false)
