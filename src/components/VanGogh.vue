@@ -157,6 +157,7 @@ const { name } = useDisplay()
 let smallScreen = computed(()=>{return name.value === 'xs'})
 
 const paintingWidth = computed(() => { 
+    console.log('screensize is', name.value, smallScreen)
     return smallScreen? '95vw' : '10vw'
 })
 const plotHeight = computed(() => {
