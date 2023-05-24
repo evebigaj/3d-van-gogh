@@ -1,17 +1,7 @@
 <template>
   <div>
-    <v-card :v-if="mobile" class="mt-1" :style="`width: ${paintingWidth}; position: fixed; right: 15px; top: 40px;`">
-        <v-select
-        v-model="painting"
-        :items="paintings"
-        item-title="title"
-        item-value="fNumber">
-        </v-select>
-        <v-checkbox label="Show axes" v-model="checkShowAxes"></v-checkbox>
-        <v-img  :src="`/${fNumber}.jpeg`"></v-img>
-    </v-card>
     <div id="plotContainer" :style="`cursor:${plotCursor};`" @mousedown="togglePlotCursor" @mouseup="togglePlotCursor"></div>
-        <v-card :v-if="!mobile" class="mt-1" :style="`width: ${paintingWidth}; position: fixed; right: 15px; top: 40px;`">
+        <v-card class="mt-1" :style="`width: ${paintingWidth}; position: fixed; right: 15px; top: 40px;`">
             <v-select
             v-model="painting"
             :items="paintings"
@@ -19,7 +9,7 @@
             item-value="fNumber">
             </v-select>
             <v-checkbox label="Show axes" v-model="checkShowAxes"></v-checkbox>
-            <v-img  :src="`/${fNumber}.jpeg`"></v-img>
+            <v-img v-if="!mobile"  :src="`/${fNumber}.jpeg`"></v-img>
         </v-card>
 
         <v-icon icon="mdi:mdi-information" color="info" style="position: fixed; right: 15px; bottom: 15px;" @click="toggleShowInfo"></v-icon>
@@ -165,7 +155,7 @@ watch(checkShowAxes, newShowAxes => {
 
 const { mobile } = useDisplay()
 
-const paintingWidth = mobile? '200px' : '10vw'
+const paintingWidth = (mobile.value? '70vw' : '10vw')
 
 let plotCursor = ref('grab')
 
