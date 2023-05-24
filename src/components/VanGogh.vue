@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="plotContainer" :style="`cursor:${plotCursor};`" @mousedown="togglePlotCursor" @mouseup="togglePlotCursor"></div>
+    <div id="plotContainer" :style="`cursor:${plotCursor}; min-height:${plotHeight}`" @mousedown="togglePlotCursor" @mouseup="togglePlotCursor"></div>
         <v-card class="mt-1" :style="`width: ${paintingWidth}; position: fixed; right: 15px; top: 40px;`">
             <v-select
             v-model="painting"
@@ -9,7 +9,7 @@
             item-value="fNumber">
             </v-select>
             <v-checkbox label="Show axes" v-model="checkShowAxes"></v-checkbox>
-            <v-img v-if="!mobile"  :src="`/${fNumber}.jpeg`"></v-img>
+            <v-img v-if="!smallScreen"  :src="`/${fNumber}.jpeg`"></v-img>
         </v-card>
 
         <v-icon icon="mdi:mdi-information" color="info" style="position: fixed; right: 15px; bottom: 15px;" @click="toggleShowInfo"></v-icon>
@@ -153,9 +153,15 @@ watch(checkShowAxes, newShowAxes => {
     make3dPlot(paintingJson.value, plotContainerId.value, newShowAxes)
 })
 
-const { mobile } = useDisplay()
+const { name } = useDisplay()
+let smallScreen = computed(()=>{return name.value === 'xs'})
 
-const paintingWidth = (mobile.value? '70vw' : '10vw')
+const paintingWidth = computed(() => { 
+    return smallScreen? '95vw' : '10vw'
+})
+const plotHeight = computed(() => {
+    return smallScreen? '70vh' : '100vh'
+})
 
 let plotCursor = ref('grab')
 
@@ -168,7 +174,6 @@ function togglePlotCursor() {
 
 onMounted(() => {
     make3dPlot(paintingJson.value, plotContainerId.value, showAxes.value)
-    console.log(mobile.value)
 })
 
 let showInfo = ref(false)
@@ -182,9 +187,6 @@ function toggleShowInfo() {
 
 <style>
 
-#plotContainer {
-    min-height: 100vh;
-}
 .v-input__details {
     display: none !important;
 }
