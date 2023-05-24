@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column">
-    <v-card v-if="smallScreen" class="mt-1" :style="`width: ${paintingWidth};`">
+    <v-card v-if="smallScreen" class="ma-1" :style="`width: ${paintingWidth};`">
         <v-select
         v-model="painting"
         :items="paintings"
