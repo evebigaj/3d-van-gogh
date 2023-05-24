@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-card v-if="smallScreen" class="mt-1" :style="`width: ${paintingWidth}; position: fixed; right: 15px; top: 40px;`">
+  <div class="d-flex flex-column">
+    <v-card v-if="smallScreen" class="mt-1" :style="`width: ${paintingWidth};`">
         <v-select
         v-model="painting"
         :items="paintings"
@@ -167,7 +167,7 @@ let smallScreen = computed(()=>{
     return name.value === 'xs'})
 
 const paintingWidth = computed(() => { 
-    return smallScreen.value? '95vw' : '10vw'
+    return smallScreen.value? '95vw' : '15vw'
 })
 const plotHeight = computed(() => {
     return smallScreen.value? '70vh' : '100vh'
