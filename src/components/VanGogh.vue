@@ -29,7 +29,7 @@
         > -->
         <div v-if="showInfo" class="pa-0 mr-1" style="position: fixed; right: 40px; bottom: 15px;">
 
-                    This is a rendering of Van Gogh's paintings in <a href="https://en.wikipedia.org/wiki/CIELAB_color_space">CIELAB color space</a>. <strong>Questions/comments</strong>? eve.bigaj at gmail dot com
+                   <p class="ml-1"> This is a rendering of Van Gogh's paintings in <a href="https://en.wikipedia.org/wiki/CIELAB_color_space">CIELAB color space</a>. <strong>Questions/comments</strong>? eve.bigaj at gmail dot com </p>
         </div>    
 
     </div>
