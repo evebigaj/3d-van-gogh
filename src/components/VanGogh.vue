@@ -167,7 +167,7 @@ let smallScreen = computed(()=>{
     return name.value === 'xs'})
 
 const paintingWidth = computed(() => { 
-    return smallScreen.value? '95vw' : '15vw'
+    return smallScreen.value? '100vw' : '15vw'
 })
 const plotHeight = computed(() => {
     return smallScreen.value? '70vh' : '100vh'
