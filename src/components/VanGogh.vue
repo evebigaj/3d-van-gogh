@@ -1,5 +1,14 @@
 <template>
   <div>
+    <v-card v-if="smallScreen" class="mt-1" :style="`width: ${paintingWidth}; position: fixed; right: 15px; top: 40px;`">
+        <v-select
+        v-model="painting"
+        :items="paintings"
+        item-title="title"
+        item-value="fNumber">
+        </v-select>
+        <v-checkbox label="Show axes" v-model="checkShowAxes"></v-checkbox>
+    </v-card>
     <div id="plotContainer" :style="`cursor:${plotCursor}; min-height:${plotHeight}`" @mousedown="togglePlotCursor" @mouseup="togglePlotCursor"></div>
         <v-card class="mt-1" :style="`width: ${paintingWidth}; position: fixed; right: 15px; top: 40px;`">
             <v-select
@@ -9,7 +18,7 @@
             item-value="fNumber">
             </v-select>
             <v-checkbox label="Show axes" v-model="checkShowAxes"></v-checkbox>
-            <v-img v-if="!smallScreen"  :src="`/${fNumber}.jpeg`"></v-img>
+            <v-img  :src="`/${fNumber}.jpeg`"></v-img>
         </v-card>
 
         <v-icon icon="mdi:mdi-information" color="info" style="position: fixed; right: 15px; bottom: 15px;" @click="toggleShowInfo"></v-icon>
@@ -154,13 +163,14 @@ watch(checkShowAxes, newShowAxes => {
 })
 
 const { name } = useDisplay()
-let smallScreen = computed(()=>{return name.value === 'xs'})
+let smallScreen = computed(()=>{
+    return name.value === 'xs'})
 
 const paintingWidth = computed(() => { 
-    return smallScreen? '95vw' : '10vw'
+    return smallScreen.value? '95vw' : '10vw'
 })
 const plotHeight = computed(() => {
-    return smallScreen? '70vh' : '100vh'
+    return smallScreen.value? '70vh' : '100vh'
 })
 
 let plotCursor = ref('grab')
