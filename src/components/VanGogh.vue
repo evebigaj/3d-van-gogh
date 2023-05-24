@@ -1,33 +1,38 @@
 <template>
   <div>
+    <v-card :v-if="mobile" class="mt-1" :style="`width: ${paintingWidth}; position: fixed; right: 15px; top: 40px;`">
+        <v-select
+        v-model="painting"
+        :items="paintings"
+        item-title="title"
+        item-value="fNumber">
+        </v-select>
+        <v-checkbox label="Show axes" v-model="checkShowAxes"></v-checkbox>
+        <v-img  :src="`/${fNumber}.jpeg`"></v-img>
+    </v-card>
+    <div id="plotContainer" :style="`cursor:${plotCursor};`" @mousedown="togglePlotCursor" @mouseup="togglePlotCursor"></div>
+        <v-card :v-if="!mobile" class="mt-1" :style="`width: ${paintingWidth}; position: fixed; right: 15px; top: 40px;`">
+            <v-select
+            v-model="painting"
+            :items="paintings"
+            item-title="title"
+            item-value="fNumber">
+            </v-select>
+            <v-checkbox label="Show axes" v-model="checkShowAxes"></v-checkbox>
+            <v-img  :src="`/${fNumber}.jpeg`"></v-img>
+        </v-card>
 
-          <div id="plotContainer" :style="`cursor:${plotCursor};`" @mousedown="togglePlotCursor" @mouseup="togglePlotCursor"></div>
-          <v-card class="mt-1" :style="`width: ${paintingWidth}; position: fixed; right: 15px; top: 40px;`">
-                <v-select
-                v-model="painting"
-                :items="paintings"
-                item-title="title"
-                item-value="fNumber">
-                </v-select>
-                <v-checkbox label="Show axes" v-model="checkShowAxes"></v-checkbox>
-                <v-img  :src="`/${fNumber}.jpeg`"></v-img>
+        <v-icon icon="mdi:mdi-information" color="info" style="position: fixed; right: 15px; bottom: 15px;" @click="toggleShowInfo"></v-icon>
+        <!-- <v-dialog
+        v-model="showInfo"
+        width="auto"
+        style="position: fixed; right: 15px; bottom: 15px;"
+        > -->
+        <div v-if="showInfo" class="pa-0 mr-1" style="position: fixed; right: 40px; bottom: 15px;">
 
-            </v-card>
+                    This is a rendering of Van Gogh's paintings in <a href="https://en.wikipedia.org/wiki/CIELAB_color_space">CIELAB color space</a>. <strong>Questions/comments</strong>? eve.bigaj at gmail dot com
+        </div>    
 
-            <v-icon icon="mdi:mdi-information" color="info" style="position: fixed; right: 15px; bottom: 15px;" @click="toggleShowInfo"></v-icon>
-            <!-- <v-dialog
-            v-model="showInfo"
-            width="auto"
-            style="position: fixed; right: 15px; bottom: 15px;"
-            > -->
-            <div v-if="showInfo" class="pa-0 mr-1" style="position: fixed; right: 40px; bottom: 15px;">
-                <!-- <v-icon icon="mdi:mdi-close" @click="toggleShowInfo">
-                </v-icon> -->
-
-                        This is a rendering of Van Gogh's paintings in <a href="https://en.wikipedia.org/wiki/CIELAB_color_space">CIELAB color space</a>. <strong>Questions/comments</strong>? eve.bigaj at gmail dot com
-
-        </div>
-            <!-- </v-dialog> -->
     </div>
 </template>
 
@@ -173,6 +178,7 @@ function togglePlotCursor() {
 
 onMounted(() => {
     make3dPlot(paintingJson.value, plotContainerId.value, showAxes.value)
+    console.log(mobile.value)
 })
 
 let showInfo = ref(false)
