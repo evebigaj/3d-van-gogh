@@ -7,7 +7,7 @@
         item-title="title"
         item-value="fNumber">
         </v-select>
-        <v-checkbox label="Show axes" v-model="checkShowAxes"></v-checkbox>
+        <v-img  :src="`/${fNumber}.jpeg`" style="height:10vh"></v-img>
     </v-card>
     <div id="plotContainer" :style="`cursor:${plotCursor}; min-height:${plotHeight}`" @mousedown="togglePlotCursor" @mouseup="togglePlotCursor"></div>
         <v-card v-if="!smallScreen" class="mt-1" :style="`width: ${paintingWidth}; position: fixed; right: 15px; top: 40px;`">
